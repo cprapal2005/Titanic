@@ -1,5 +1,7 @@
 package POJOS;
 
+import java.util.ArrayList;
+
 public class DNI {
 
 	//Atributos
@@ -12,11 +14,15 @@ public class DNI {
                                 'F', 'P', 'D', 'X', 'B', 'N', 'J', 'Z', 
                                 'S', 'Q', 'V', 'H', 'L', 'C', 'K', 'E'};
     
-    private static char letrasNIE[]={'X', 'Y', 'Z'};
-    
+    @SuppressWarnings("unused")
+	private static char letrasNIE[]={'X', 'Y', 'Z'};
+    @SuppressWarnings("unused")
     private static char letrasCIF[]={'A','B','C','D','E','F','G','H','J','K','L','M','N','P','Q','R','S','U','V','W'};
+    @SuppressWarnings("unused")
     private static boolean NUMERO_O_LETRAS[]={true,true,false,true,true,true,true,true,true,false,false,false,false,false,false,false,false,true,true,false}; //True = numero, false = letra
+    @SuppressWarnings("unused")
     private static char letrasCIFFINAL[]={'A','B','C','D','E','F','G','H','I','J'};
+    private static ArrayList<String> dniCreados = new ArrayList<String>();
     
     private final int DIVISOR=23;
     public DNI(){
@@ -179,26 +185,26 @@ public class DNI {
         }
     }
     
-    private static char devolverLetraNIF(String DNI){
-        
-       if(DNI.length()>=7 && DNI.length()<=8){
-           try{
-                final int divisor=23;
-                int dni=Integer.parseInt(DNI);
-                int res=dni-(dni/divisor*divisor);
-
-                char letrasNIF[]={'T', 'R', 'W', 'A', 'G', 'M', 'Y', 
-                                  'F', 'P', 'D', 'X', 'B', 'N', 'J', 'Z', 
-                                  'S', 'Q', 'V', 'H', 'L', 'C', 'K', 'E'};
-
-                return letrasNIF[res];
-        }catch(NumberFormatException e){
-            return ' ';
-        }
-       }else{
-           return ' ';
-       }
-       
+    private static boolean comprobarRepetidos(String dni) {
+    	
+    	if(dniCreados.size()<1) {
+    		dniCreados.add(dni);
+    		return false;
+    	}
+    	
+    	else {
+    		
+    		for (String repetido : dniCreados) {
+    			
+    			if(repetido.equalsIgnoreCase(dni)==true) return true;
+    			
+    		}
+    		
+    		return false;
+    		
+    	}
+    	
+    	
     }
     
     public static String generaDNIAleatorio(){
@@ -207,10 +213,23 @@ public class DNI {
         
         char letra=letraNIF(numero);
         
+        String dni = "";
+        
         if(cuentaCifras(numero)==7){
-            return String.valueOf("0"+numero)+letra;
+        	
+            dni = String.valueOf("0"+numero)+letra;
+            
         }else{
-            return String.valueOf(numero)+letra;
+        	
+        	dni = String.valueOf(numero)+letra;
+        	
+        }
+        
+        if(comprobarRepetidos(dni)==false) return dni;
+        
+        else {
+        	dni = generaDNIAleatorio();
+        	return dni;
         }
         
         
