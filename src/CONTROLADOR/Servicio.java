@@ -39,10 +39,6 @@ public class Servicio {
 			
 			for (int i = 0; i < vectorBotes.length; i++) {
 				
-				System.out.println("\n" + vectorBotes[i].toString() + "\n");
-				
-				Thread.sleep(3000);
-				
 				for (int j = 0; j < vectorBotes[i].getNumeroPlazas(); j++) {
 					
 					gestionNiñosPequeños(i);
@@ -73,11 +69,15 @@ public class Servicio {
 					
 				}
 				
+				if(vectorBotes[i].getArrayPersonas().size()>0) System.err.println("\n" + vectorBotes[i].toString() + "\n");
+				
+				Thread.sleep(1500);
+				
 				for (int j = 0; j < vectorBotes[i].getArrayPersonas().size(); j++) {
 					
 					System.out.println(vectorBotes[i].getArrayPersonas().get(j));
 					
-					Thread.sleep(1500);
+					Thread.sleep(500);
 					
 				}
 					
