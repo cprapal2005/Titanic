@@ -54,6 +54,14 @@ public abstract class Persona implements Comparable<Persona> {
 	}
 
 
+	
+	
+
+	public void setZona(Zona zona) {
+		this.zona = zona;
+	}
+
+
 
 	public boolean isMinusvalia() {
 		return minusvalia;

@@ -17,9 +17,9 @@ public class DAOPersonas {
 
 	private static DAOPersonas dao;
 	
-	private final Integer NUMEROPASAJEROS = 10;
+	private final Integer NUMEROPASAJEROS = 50;
 	
-	private final Integer NUMEROTRIPULACION = 3;
+	private final Integer NUMEROTRIPULACION = 10;
 	
 	private DAOPersonas() {
 		

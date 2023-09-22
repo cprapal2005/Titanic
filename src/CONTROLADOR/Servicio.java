@@ -22,7 +22,7 @@ public class Servicio {
 		private Servicio() {
 			
 			arrayPersonas = DAOPersonas.getInstance().getPersonas();
-			vectorBotes = DAOBotes.getInstance(arrayPersonas.size()).getBotes();
+			vectorBotes = DAOBotes.getInstance().getBotes(arrayPersonas);
 			
 			
 		}
@@ -101,7 +101,10 @@ public class Servicio {
 							
 							Pasajero posibleFamiliar = (Pasajero) this.arrayPersonas.get(k2);
 							
-							if (niñoEncontrado.getNumeroHabitacion()==posibleFamiliar.getNumeroHabitacion()) arrayFamilia.add(posibleFamiliar);
+							if (niñoEncontrado.getNumeroHabitacion()==posibleFamiliar.getNumeroHabitacion()) {
+								posibleFamiliar.setZona(niñoEncontrado.getZona());
+								arrayFamilia.add(posibleFamiliar);
+							}
 								
 						}
 						
@@ -109,7 +112,7 @@ public class Servicio {
 					
 					arrayFamilia.add(this.arrayPersonas.get(k));
 					
-					if(arrayFamilia.size()>1 && (arrayFamilia.size()+vectorBotes[i].getArrayPersonas().size())<=vectorBotes[i].getNumeroPlazas()) {
+					if(arrayFamilia.size()>1 && (arrayFamilia.size()+vectorBotes[i].getArrayPersonas().size())<=vectorBotes[i].getNumeroPlazas() && niñoEncontrado.getZona()==vectorBotes[i].getZonaBarco()) {
 						
 						for (int k2 = 0; k2 < arrayFamilia.size(); k2++) {
 							
@@ -147,7 +150,7 @@ public class Servicio {
 				
 				if(Period.between(persona.getFechaNacimiento().toLocalDate(), LocalDate.now()).getYears()>79 && persona instanceof Pasajero) {
 					
-					if(vectorBotes[i].getArrayPersonas().size()<vectorBotes[i].getNumeroPlazas()) {
+					if(vectorBotes[i].getArrayPersonas().size()<vectorBotes[i].getNumeroPlazas() && vectorBotes[i].getZonaBarco()==persona.getZona()) {
 						
 						vectorBotes[i].getArrayPersonas().add(persona);
 						
@@ -175,7 +178,7 @@ public class Servicio {
 				
 				if(persona.isMinusvalia()==true && persona instanceof Pasajero) {
 					
-					if(vectorBotes[i].getArrayPersonas().size()<vectorBotes[i].getNumeroPlazas()) {
+					if(vectorBotes[i].getArrayPersonas().size()<vectorBotes[i].getNumeroPlazas() && vectorBotes[i].getZonaBarco()==persona.getZona()) {
 						
 						vectorBotes[i].getArrayPersonas().add(persona);
 						
@@ -203,7 +206,7 @@ public class Servicio {
 				
 				if(persona instanceof Pasajero) {
 					
-					if(vectorBotes[i].getArrayPersonas().size()<vectorBotes[i].getNumeroPlazas()) {
+					if(vectorBotes[i].getArrayPersonas().size()<vectorBotes[i].getNumeroPlazas() && vectorBotes[i].getZonaBarco()==persona.getZona()) {
 						
 						vectorBotes[i].getArrayPersonas().add(persona);
 						
@@ -233,7 +236,7 @@ public class Servicio {
 					
 					if(persona instanceof Tripulacion && ((Tripulacion) persona).getNivelResponsabilidad()==Responsabilidad.values()[j]) {
 						
-						if(vectorBotes[i].getArrayPersonas().size()<vectorBotes[i].getNumeroPlazas()) {
+						if(vectorBotes[i].getArrayPersonas().size()<vectorBotes[i].getNumeroPlazas() && vectorBotes[i].getZonaBarco()==persona.getZona()) {
 							
 							vectorBotes[i].getArrayPersonas().add(persona);
 							

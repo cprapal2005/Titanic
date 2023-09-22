@@ -38,6 +38,12 @@ public class Bote {
 	public Zona getZonaBarco() {
 		return zonaBarco;
 	}
+	
+	
+
+	public void setZonaBarco(Zona zonaBarco) {
+		this.zonaBarco = zonaBarco;
+	}
 
 	public static Integer getId() {
 		return id;
